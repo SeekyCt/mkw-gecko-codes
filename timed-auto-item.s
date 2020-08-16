@@ -1,3 +1,6 @@
+# Timed Automatic Item Usage for Mario Kart Wii
+# See https://mkwii.com/showthread.php?tid=1389 for more
+
 #==========#
 # Settings #
 #==========#
