@@ -1,5 +1,6 @@
 # Checks if EVENT data would fit in the buffer before copying it in
 # This prevents you crashing from sending too many items
+# See http://wiki.tockdom.com/wiki/MKWii_Network_Protocol/EVENT
 
 #==============#
 # C2           #
