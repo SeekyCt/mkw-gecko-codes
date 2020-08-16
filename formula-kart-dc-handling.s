@@ -6,6 +6,10 @@
 # as disconnected until the player in 1st was on their final lap, which is generally late enough to ensure nobody would have a
 # low enough lap to be counted as behind the disconnected players
 
+#====#
+# C0 #
+#====#
+
 .set REGION, 'P'
 .if REGION == 'P'
   .set RACEINFO, 0x809bd730
