@@ -2,12 +2,14 @@
 # This prevents you crashing from sending too many items
 # See http://wiki.tockdom.com/wiki/MKWii_Network_Protocol/EVENT
 
-#==============#
-# C2           #
-#==============#
-# 8065bbd4 PAL #
-# Unported     #
-#==============#
+#=================#
+# C2              #
+#=================#
+# 806575B8 NTSC-U #
+# 8065B240 NTSC-J #
+# 8065BBD4 PAL    #
+# 80649EEC NTSC-K #
+#=================#
 
 # r12 free
 # r27: entry pointer

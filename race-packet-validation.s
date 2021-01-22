@@ -3,12 +3,14 @@
 # for the same exploit as https://mkwii.com/showthread.php?tid=1543
 # See http://wiki.tockdom.com/wiki/MKWii_Network_Protocol#Main_records_.28.22RACE.22_records.29
 
-#==============#
-# C2           #
-#==============#
-# 80659a84 PAL #
-# Unported     #
-#==============#
+#=================#
+# C2              #
+#=================#
+# 806555FC NTSC-U #
+# 806590F0 NTSC-J #
+# 80659a84 PAL    #
+# 80647D9C NTSC-K #
+#=================#
 
 # r3 RKnetController ptr
 # r4 aid

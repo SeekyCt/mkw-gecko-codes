@@ -11,12 +11,22 @@
 #====#
 
 .set REGION, 'P'
-.if REGION == 'P'
+
+.if REGION == 'U'
+  .set RACEINFO, 0x809B8F70
+  .set RKNETCONTROLLER, 0x809BD918
+.elseif REGION == 'J'
+  .set RACEINFO, 0x809BC790
+  .set RKNETCONTROLLER, 0x809C1138
+.elseif REGION == 'P'
   .set RACEINFO, 0x809bd730
   .set RKNETCONTROLLER, 0x809c20d8
+.elseif REGION == 'K'
+  .set RACEINFO, 0x809ABD70
+  .set RKNETCONTROLLER, 0x809B0718
 .else
-  .err # ports not done
- .endif
+  .err
+.endif
 
 # get the raceinfo pointer
 lis r12, RACEINFO@ha

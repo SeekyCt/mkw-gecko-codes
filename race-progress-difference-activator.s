@@ -7,9 +7,18 @@
 
 .set REGION, 'P'
 
-.if REGION == 'P'
+.if REGION == 'U'
+  .set RACEDATA, 0x809B8F68
+  .set RACEINFO, 0x809B8F70
+.elseif REGION == 'J'
+  .set RACEDATA, 0x809BC788
+  .set RACEINFO, 0x809BC790
+.elseif REGION == 'P'
   .set RACEDATA, 0x809bd728
   .set RACEINFO, 0x809bd730
+.elseif REGION == 'K'
+  .set RACEDATA, 0x809ABD68
+  .set RACEINFO, 0x809ABD70
 .else
   .err
 .endif
@@ -20,7 +29,7 @@ bl enddata
 .long RACEINFO
 .long RACEDATA
 .long 0x80000198 # output location
-.float 2.0 # max difference
+.float 2.0 # max difference before the value is set
 enddata:
 mflr r3
 

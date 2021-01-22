@@ -3,11 +3,23 @@
 # Uses JoshuaMK's millisecond timer modification address https://www.mkwii.com/showthread.php?tid=1448
 
 .set REGION, 'P'
-.if REGION == 'P'
+
+.if REGION == 'U'
+  .set RACEDATA, 0x809B8F68
+  .set RACEINFO, 0x809B8F70
+.elseif REGION == 'J'
+  .set RACEDATA, 0x809BC788
+  .set RACEINFO, 0x809BC790
+.elseif REGION == 'P'
   .set RACEDATA, 0x809bd728
+  .set RACEINFO, 0x809bd730
+.elseif REGION == 'K'
+  .set RACEDATA, 0x809ABD68
+  .set RACEINFO, 0x809ABD70
 .else
-  .err # ports not done
+  .err
 .endif
+
 
 # Load HUD pid and convert it to player array index
 # racedata.main = 0x1c
@@ -20,9 +32,9 @@ lwz r26, RACEDATA@l (r26)
 lbz r26, 0xb84 (r26)
 rlwinm r26, r26, 2, 0, 29 # multiply by 4
 
-# Get raceinfo pointer - needs special porting
-lis r28, 0x809C
-lwz r28, -0x28d0 (r28)
+# Get raceinfo pointer
+lis r28, RACEINFO@ha
+lwz r28, RACEINFO@l (r28)
 
 # Get player from player array
 lwz r28, 0xC (r28)

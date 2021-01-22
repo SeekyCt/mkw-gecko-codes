@@ -5,16 +5,23 @@
 # C2              #
 #=================#
 # 80659D7C NTSC-U #
-# 80661CB8 PAL    #
 # 80661324 NTSC-J #
+# 80661CB8 PAL    #
 # 8064FFD0 NTSC-K #
 #=================#
 
 .set REGION, 'P'
-.if REGION == 'P'
+
+.if REGION == 'U'
+  .set RACEDATA, 0x809B8F68
+.elseif REGION == 'J'
+  .set RACEDATA, 0x809BC788
+.elseif REGION == 'P'
   .set RACEDATA, 0x809bd728
+.elseif REGION == 'K'
+  .set RACEDATA, 0x809ABD68
 .else
-  .err # ports not done
+  .err
 .endif
 
 #Get racedata pointer

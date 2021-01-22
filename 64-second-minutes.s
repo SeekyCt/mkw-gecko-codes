@@ -1,12 +1,14 @@
 # A joke code I made to make more than 60 seconds pass on the timer before the minutes increase
 # Currently only supports powers of 2 because I needed it to be beneath a certain size
 
-#==============#
-# C2           #
-#==============#
-# 807f82b8 PAL #
-# Unported     #
-#==============#
+#=================#
+# C2              #
+#=================#
+# 807ED7B8 NTSC-U #
+# 807F7924 NTSC-J #
+# 807F82B8 PAL    #
+# 807E6678 NTSC-K #
+#=================#
 
 # r3 - Raceinfo pointer
 # r4 - Destination Timer struct
