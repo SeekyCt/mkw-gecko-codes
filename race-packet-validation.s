@@ -17,64 +17,74 @@
 # r5 packet ptr
 # r6 size
 
-header:
-lbz r0, 0x8 (r5)
-cmpwi r0, 0
-beqlr # this specific section would freeze if 0
-cmpwi r0, 0x10
-bnelr
+# HEADER Record
+lbz       r9, 8(r5)
+cmpwi     r9, 0x10
+bnelr-
 
-rh1:
-lbz r0, 0x9 (r5)
-cmpwi r0, 0
-beq rh2
-cmpwi r0, 0x28
-bnelr
+# RACEHEADER_1 Record
+lbz       r9, 9(r5)
+cmpwi     r9, 0
+beq-      loc_valid_RACEHEADER_1_record
+cmplwi    r9, 0x28
+bnelr-
 
-rh2:
-lbz r0, 0xa (r5)
-cmpwi r0, 0
-beq roomSelect
-cmpwi r0, 0x28
-bnelr
+loc_valid_RACEHEADER_1_record:
+# RACEHEADER_2 Record
+lbz       r10, 0xA(r5)
+cmpwi     r10, 0
+beq-      loc_valid_RACEHEADER_2_record
+cmplwi    r10, 0x28
+bnelr-
 
-roomSelect:
-lbz r0, 0xb (r5)
-andi. r0, r0, ~0x4 & 0xff
-beq racedata
-cmpwi r0, 0x38
-bnelr
+loc_valid_RACEHEADER_2_record:
+# ROOM / SELECT Record
+lbz       r8, 0xB(r5)
+andi.     r7, r8, 0xFB
+beq+      loc_valid_ROOM_SELECT_record
+cmplwi    r8, 0x38
+bnelr-
 
-racedata:
-lbz r0, 0xc (r5)
-andi. r0, r0, ~0x80 & 0xff
-beq user
-cmpwi r0, 0x40
-bnelr
+loc_valid_ROOM_SELECT_record:
+# RACEDATA Record
+lbz       r7, 0xC(r5)
+andi.     r11, r7, 0x7F
+beq-      loc_valid_RACEDATA_record
+cmplwi    r7, 0x40
+bnelr-
 
-user:
-lbz r0, 0xd (r5)
-cmpwi r0, 0
-beq item
-cmpwi r0, 0xc0
-bnelr
+loc_valid_RACEDATA_record:
+# USER Record
+lbz       r11, 0xD(r5)
+cmpwi     r11, 0
+beq+      loc_valid_USER_record
+cmplwi    r11, 0xC0
+bnelr-
+add       r9, r5, r9
+add       r9, r9, r10
+add       r9, r9, r8
+add       r9, r9, r7
+lhz       r9, 0x14(r9)
+cmpwi     r9, 2
+bnelr-
 
-item:
-lbz r0, 0xe (r5)
-andi. r0, r0, ~0x10 & 0xff
-beq event
-cmpwi r0, 0x8
-bnelr
+loc_valid_USER_record:
+# ITEM Record
+lbz       r9, 0xE(r5)
+andi.     r10, r9, 0xEF
+beq-      loc_valid_ITEM_record
+cmplwi    r9, 8
+bnelr-
 
-event:
-lbz r0, 0xf (r5)
-cmpwi r0, 0
-beq allow
-cmpwi r0, 0x18
-bltlr
-cmpwi r0, 0xf8
-bgtlr
+loc_valid_ITEM_record:
+# EVENT Record
+lbz       r9, 0xF(r5)
+cmpwi     r9, 0
+beq-      loc_valid_EVENT_record
+addi      r9, r9, -0x18
+clrlwi    r9, r9, 24
+cmplwi    r9, 0xE0
+bgtlr-
 
-allow:
-# default instruction
-stwu r1, -0x30 (r1)
+loc_valid_EVENT_record:
+stwu      r1, -0x30(r1)
